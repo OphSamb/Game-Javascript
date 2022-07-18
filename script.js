@@ -49,6 +49,8 @@ function evenOrOdd(number) {
 console.log(evenOrOdd(9));*/
 
 //Main JavaScript Project//
+const computerSelection = computerPlay();
+
 function computerPlay() {
   let optionList = ["rock", "paper", "scissors"];
   let computerChoice = Math.floor(Math.random() * 3);
@@ -59,44 +61,31 @@ function playRound(playerSelection, computerSelection) {
   if (playerSelection == computerSelection) {
     return "Tie! Try again";
   }
-  if (playerSelection == "rock") {
-    if (computerSelection == "paper") {
-      return "Paper beats rock, You lose!";
-    } else if (computerSelection == "scissors") {
-      return "Rock beats scissors, You win!";
-    }
+  if (playerSelection == "rock" && computerSelection == "paper") {
+    return "You lose!";
+  } else {
+    return "You win!";
   }
-  if (playerSelection == "paper") {
-    if (computerSelection == "scissors") {
-      return "Scissors beats paper, You lose!";
-    } else if (computerSelection == "rock") {
-      return "Paper beats rock, You loose!";
-    }
+  if (playerSelection == "paper" && computerSelection == "scissors") {
+    return "You lose!";
+  } else {
+    return "You win!";
   }
-  if (playerSelection == "scissors") {
-    if (computerSelection == "rock") {
-      return "Rock beats scissors, You lose!";
-    } else if (computerSelection == "paper") {
-      return "Scissors beats paper, You win!";
-    }
+  if (playerSelection == "scissors" && computerSelection == "rock") {
+    return "You lose!";
+  } else {
+    return "You win!";
   }
+  console.log("You choose " + playerSelection);
+  console.log("The computer's choice is " + computerSelection);
+  console.log(playRound(playerSelection, computerSelection));
 }
-function game() {
-  for (let i = 0; i < 5; i++) {
-    let myChoice = prompt("Do you choose rock, paper or scissors?");
-    let computerChoice = computerPlay();
-    console.log(playRound(myChoice, computerChoice));
-  }
-}
-
-//var text = "Rock beats scissors, You win!";
-//const myArray = text.split(",");
-//var result = myArray[1];
-//console.count(myChoice);
-//console.count(computerChoice);
-
-//const playerSelection = "rock";
-//const computerSelection = computerPlay();
-//console.log("You choose " + playerSelection);
-//console.log("The computer's choice is " + computerSelection);
-//console.log(playRound(playerSelection, computerSelection));
+//function game() {
+//  for (let i = 0; i < 5; i++) {
+//    let myChoice = prompt("Do you choose rock, paper or scissors?");
+//    console.log(myChoice);
+//    let computerChoice = computerPlay();
+//    console.log(computerChoice);
+//    console.log(playRound(myChoice, computerChoice));
+//  }
+//}
