@@ -7,10 +7,9 @@ function computerPlay() {
 }
 
 function playRound(playerSelection, computerSelection) {
-  if (playerSelection == computerSelection) {
+  if (playerSelection === computerSelection) {
     return "Tie! Try again";
-  }
-  if (playerSelection == "rock" && computerSelection == "paper") {
+  } else if (playerSelection === "rock" && computerSelection === "paper") {
     return "You lose!";
   } else {
     return "You win!";
