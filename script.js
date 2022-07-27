@@ -1,39 +1,57 @@
-const computerSelection = computerPlay();
+const getUserChoice = (userInput) => {
+  userInput = userInput.toLowerCase();
+  if (userInput === "rock" || userInput === "paper" || userInput === "scissors") {
+    return userInput;
+  } else {
+    console.log("Invalid input");
+  }
+};
 
-function computerPlay() {
-  let optionList = ["rock", "paper", "scissors"];
-  let computerChoice = Math.floor(Math.random() * 3);
-  return optionList[computerChoice];
-}
+const getComputerChoice = () => {
+  const randomNumber = Math.floor(Math.random() * 3);
+  switch (randomNumber) {
+    case 0:
+      return "rock";
+    case 1:
+      return "paper";
+    case 2:
+      return "scissors";
+  }
+};
 
-function playRound(playerSelection, computerSelection) {
-  if (playerSelection === computerSelection) {
-    return "Tie! Try again";
-  } else if (playerSelection === "rock" && computerSelection === "paper") {
-    return "You lose!";
-  } else {
-    return "You win!";
+const determineWinner = (userChoice, computerChoice) => {
+  if (userChoice === computerChoice) {
+    return "The game is a tie!";
   }
-  if (playerSelection == "paper" && computerSelection == "scissors") {
-    return "You lose!";
-  } else {
-    return "You win!";
+  if (userChoice === "rock") {
+    if (computerChoice === "paper") {
+      return "The computer wins";
+    } else {
+      return "You win";
+    }
   }
-  if (playerSelection == "scissors" && computerSelection == "rock") {
-    return "You lose!";
-  } else {
-    return "You win!";
+  if (userChoice === "paper") {
+    if (computerChoice === "scissors") {
+      return "Computer wins";
+    } else {
+      return "You win";
+    }
   }
-  console.log("You choose " + playerSelection);
-  console.log("The computer's choice is " + computerSelection);
-  console.log(playRound(playerSelection, computerSelection));
-}
-//function game() {
-//  for (let i = 0; i < 5; i++) {
-//    let myChoice = prompt("Do you choose rock, paper or scissors?");
-//    console.log(myChoice);
-//    let computerChoice = computerPlay();
-//    console.log(computerChoice);
-//    console.log(playRound(myChoice, computerChoice));
-//  }
-//}
+  if (userChoice === "scissors") {
+    if (computerChoice === "rock") {
+      return "Computer wins";
+    } else {
+      return "You win";
+    }
+  }
+};
+
+const playGame = () => {
+  const userChoice = getUserChoice("paper");
+  const computerChoice = getComputerChoice();
+  console.log(`You choose ${userChoice}`);
+  console.log(`The computer choose ${computerChoice}`);
+  console.log(determineWinner(userChoice, computerChoice));
+};
+
+playGame();
