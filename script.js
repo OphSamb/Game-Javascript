@@ -1,57 +1,83 @@
-const getUserChoice = (userInput) => {
-  userInput = userInput.toLowerCase();
-  if (userInput === "rock" || userInput === "paper" || userInput === "scissors") {
-    return userInput;
-  } else {
-    console.log("Invalid input");
-  }
-};
+let userScore = 0;
+let computerScore = 0;
 
-const getComputerChoice = () => {
+const usersScore = document.getElementById("user-score");
+const computersScore = document.getElementById("computer-score");
+const scoreBoard = document.querySelector(".score-board");
+const resultSentence = document.querySelector(".result");
+const rockMove = document.getElementById("rock");
+const paperMove = document.getElementById("paper");
+const scissorsMove = document.getElementById("scissors");
+
+function getComputerChoice() {
+  const choices = ["rock", "paper", "scissors"];
   const randomNumber = Math.floor(Math.random() * 3);
-  switch (randomNumber) {
-    case 0:
-      return "rock";
-    case 1:
-      return "paper";
-    case 2:
-      return "scissors";
-  }
-};
+  return choices[randomNumber];
+}
 
-const determineWinner = (userChoice, computerChoice) => {
-  if (userChoice === computerChoice) {
-    return "The game is a tie!";
-  }
-  if (userChoice === "rock") {
-    if (computerChoice === "paper") {
-      return "The computer wins";
-    } else {
-      return "You win";
-    }
-  }
-  if (userChoice === "paper") {
-    if (computerChoice === "scissors") {
-      return "Computer wins";
-    } else {
-      return "You win";
-    }
-  }
-  if (userChoice === "scissors") {
-    if (computerChoice === "rock") {
-      return "Computer wins";
-    } else {
-      return "You win";
-    }
-  }
-};
+function convertCase(userInput) {
+  if (userInput === "paper") return "Paper";
+  if (userInput === "scissors") return "Scissors";
+  return "Rock";
+}
 
-const playGame = () => {
-  const userChoice = getUserChoice("paper");
+function win(user, computer) {
+  userScore++;
+  usersScore.innerHTML = userScore;
+  const userName = " (user)";
+  const compName = " (computer)";
+  resultSentence.innerHTML = `<p>${convertCase(user)} beats ${convertCase(computer)}</p><p> You win!</p>`;
+  const roundStatus = document.getElementById(user);
+  roundStatus.classList.add("winningStyles");
+  setTimeout(() => roundStatus.classList.remove("winningStyles"), 300);
+}
+
+function loses(user, computer) {
+  computerScore++;
+  computersScore.innerHTML = computerScore;
+  const userName = " (user)";
+  const compName = " (computer)";
+  resultSentence.innerHTML = `<p>${convertCase(user)} beats ${convertCase(computer)}</p><p> You lose!</p>`;
+  const roundStatus = document.getElementById(user);
+  roundStatus.classList.add("losingStyles");
+  setTimeout(() => roundStatus.classList.remove("losingStyles"), 300);
+}
+
+function tie(user, computer) {
+  const userName = "(user)";
+  const compName = "(computer)";
+  resultSentence.innerHTML = `<p> You both chose ${convertCase(user)}</p><p>Tie!</p>`;
+  const roundStatus = document.getElementById(user);
+  roundStatus.classList.add("tieStyles");
+  setTimeout(() => roundStatus.classList.remove("tieStyles"), 300);
+}
+
+function playGame(userInput) {
   const computerChoice = getComputerChoice();
-  console.log(`You choose ${userChoice}`);
-  console.log(`The computer choose ${computerChoice}`);
-  console.log(determineWinner(userChoice, computerChoice));
-};
+  const userChoice = userInput;
+  switch (userChoice + computerChoice) {
+    case "paperrock":
+    case "rockscissors":
+    case "scissorspaper":
+      win(userChoice, computerChoice);
+      break;
+    case "rockpaper":
+    case "scissorsrock":
+    case "paperscissors":
+      loses(userChoice, computerChoice);
+      break;
+    case "rockrock":
+    case "scissorsscissors":
+    case "paperpaper":
+      tie(userChoice, computerChoice);
+      break;
+  }
+}
 
-playGame();
+function main() {
+  rockMove.addEventListener("click", () => playGame("rock"));
+  paperMove.addEventListener("click", () => playGame("paper"));
+  scissorsMove.addEventListener("click", () => playGame("scissors"));
+}
+
+main();
